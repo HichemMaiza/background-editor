@@ -12,6 +12,7 @@ import static org.opencv.core.CvType.CV_32FC1;
 
 public class BGTranslator implements Translator<Mat, Mat> {
 
+    public static final long[] UNET_INPUT_SHAPE = {3, 320, 320};
     private static final Logger LOGGER = LoggerFactory.getLogger(BGTranslator.class);
     private static final int U2NET_ROWS = 320 ;
     private static final int U2NET_COLS = 320 ;
@@ -34,7 +35,6 @@ public class BGTranslator implements Translator<Mat, Mat> {
 
         Mat outputImage = new Mat(U2NET_ROWS, U2NET_COLS, CV_32FC1);
         outputImage.put(0, 0, yData);
-
 
         // Convert the Mat to 8-bit format (if necessary)
         Mat outputImage8bit = new Mat();
@@ -81,10 +81,8 @@ public class BGTranslator implements Translator<Mat, Mat> {
         NDManager ndManager = ctx.getNDManager();
         NDArray ndArray = ndManager.create(floats) ;
 
-        // if you want to use the original u2net model, you have to reshape your input tensor
-        // NDArray reshaped = ndManager.create(floats, new Shape(3,320,320)) ;
-        // NDArray reshaped =  ndArray.reshape(3, 320, 320) ;
-        return new NDList(ndArray);
+        NDArray reshaped =  ndArray.reshape(UNET_INPUT_SHAPE) ;
+        return new NDList(reshaped);
     }
 
     public static float[] convertBytesToFloats(byte[] bytes) {

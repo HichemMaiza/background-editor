@@ -6,9 +6,6 @@ Work in progress ...
 
 https://github.com/xuebinqin/U-2-Net
 
-## u2net_enriched.onnx model 
-
-see model-enricher/enricher.py
 
 ## Input image 
 
