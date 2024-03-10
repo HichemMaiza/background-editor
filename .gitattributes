@@ -1,0 +1,2 @@
+src/test/resources/models/u2net.onnx filter=lfs diff=lfs merge=lfs -text
+src/test/resources/models/u2net_enriched.onnx filter=lfs diff=lfs merge=lfs -text
